@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://cioun2cvcrr0s"]
+
+[ext_resource type="Script" path="res://scenes/obstacle.gd" id="1_pi2tx"]
+[ext_resource type="Texture2D" uid="uid://dsi5aa5pee81g" path="res://assets/dual_pipe_long.png" id="2_p34lf"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_y73ah"]
+size = Vector2(72, 288)
+
+[node name="PipeBig" type="Area2D"]
+script = ExtResource("1_pi2tx")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_p34lf")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_y73ah")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

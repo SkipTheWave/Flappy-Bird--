@@ -1,0 +1,35 @@
+[gd_scene load_steps=6 format=3 uid="uid://daqtewgxt54c1"]
+
+[ext_resource type="Texture2D" uid="uid://d38ceuoo614k4" path="res://assets/bg.png" id="1_dn42r"]
+[ext_resource type="Script" path="res://scenes/main.gd" id="1_xybcw"]
+[ext_resource type="PackedScene" uid="uid://cioun2cvcrr0s" path="res://scenes/pipe_big.tscn" id="2_pf60r"]
+[ext_resource type="PackedScene" uid="uid://cc5u7hb6iellk" path="res://scenes/player_bird.tscn" id="3_210b4"]
+[ext_resource type="PackedScene" uid="uid://citi1nidhe38f" path="res://scenes/ground.tscn" id="4_0vyvl"]
+
+[node name="Main" type="Node"]
+script = ExtResource("1_xybcw")
+obstacle_scenes = [ExtResource("2_pf60r")]
+
+[node name="Background" type="Sprite2D" parent="."]
+position = Vector2(0, 60)
+texture = ExtResource("1_dn42r")
+offset = Vector2(432, 384)
+
+[node name="PlayerBird" parent="." instance=ExtResource("3_210b4")]
+position = Vector2(62, 395)
+
+[node name="Ground" parent="." instance=ExtResource("4_0vyvl")]
+position = Vector2(0, 800)
+
+[node name="Ceiling" parent="Ground" instance=ExtResource("4_0vyvl")]
+position = Vector2(0, -670)
+scale = Vector2(1, -1)
+
+[node name="ObstacleTimer" type="Timer" parent="."]
+wait_time = 3.018
+
+[node name="Obstacles" type="Node" parent="."]
+
+[connection signal="hit" from="Ground" to="." method="_on_ground_hit"]
+[connection signal="hit" from="Ground/Ceiling" to="." method="_on_ceiling_hit"]
+[connection signal="timeout" from="ObstacleTimer" to="." method="_on_pipe_timer_timeout"]

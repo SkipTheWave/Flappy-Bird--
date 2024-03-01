@@ -1,0 +1,113 @@
+[gd_scene load_steps=19 format=3 uid="uid://daqtewgxt54c1"]
+
+[ext_resource type="Texture2D" uid="uid://d38ceuoo614k4" path="res://assets/bg.png" id="1_dn42r"]
+[ext_resource type="Script" path="res://scenes/main.gd" id="1_xybcw"]
+[ext_resource type="PackedScene" uid="uid://cioun2cvcrr0s" path="res://scenes/pipe_big.tscn" id="2_pf60r"]
+[ext_resource type="PackedScene" uid="uid://cc5u7hb6iellk" path="res://scenes/player_bird.tscn" id="3_210b4"]
+[ext_resource type="PackedScene" uid="uid://dluqvbc2l7cev" path="res://scenes/pipe_medium.tscn" id="3_c0dxk"]
+[ext_resource type="PackedScene" uid="uid://kotpxsn1niat" path="res://scenes/coin.tscn" id="3_pfate"]
+[ext_resource type="PackedScene" uid="uid://citi1nidhe38f" path="res://scenes/ground.tscn" id="4_0vyvl"]
+[ext_resource type="PackedScene" uid="uid://cay5vnwfxtmfy" path="res://scenes/pipe_short.tscn" id="4_fple6"]
+[ext_resource type="PackedScene" uid="uid://b5h17mw53p4do" path="res://scenes/speed_upgrade.tscn" id="5_6huri"]
+[ext_resource type="Script" path="res://scenes/Score.gd" id="10_3i4p0"]
+[ext_resource type="PackedScene" uid="uid://mp1ooyimh8qb" path="res://scenes/game_over.tscn" id="10_es258"]
+[ext_resource type="Script" path="res://scenes/HighScores.gd" id="11_da4k4"]
+[ext_resource type="Script" path="res://scenes/AudioPlayer.gd" id="13_k5c7o"]
+[ext_resource type="AudioStream" uid="uid://0c6f35d0fc5b" path="res://audio/click.wav" id="14_jd2es"]
+[ext_resource type="AudioStream" uid="uid://lotvkq7s3lp5" path="res://audio/hitHurt.wav" id="15_xrofx"]
+[ext_resource type="AudioStream" uid="uid://dos3eg7njxr6c" path="res://audio/pickupCoin.wav" id="16_0fsr8"]
+[ext_resource type="AudioStream" uid="uid://dt5fe11pm14dx" path="res://audio/powerUp.wav" id="17_r3joj"]
+[ext_resource type="AudioStream" uid="uid://bk8t148mnf50b" path="res://audio/music.ogg" id="18_rnbaj"]
+
+[node name="Main" type="Node"]
+script = ExtResource("1_xybcw")
+obstacle_scenes = [ExtResource("2_pf60r"), ExtResource("3_c0dxk"), ExtResource("4_fple6")]
+item_scenes = [ExtResource("3_pfate"), ExtResource("5_6huri"), ExtResource("3_pfate"), ExtResource("3_pfate")]
+
+[node name="Background" type="Sprite2D" parent="."]
+position = Vector2(0, 60)
+texture = ExtResource("1_dn42r")
+offset = Vector2(432, 384)
+
+[node name="PlayerBird" parent="." instance=ExtResource("3_210b4")]
+position = Vector2(50, 440)
+
+[node name="Ground" parent="." instance=ExtResource("4_0vyvl")]
+z_index = 1
+position = Vector2(0, 800)
+
+[node name="Ceiling" parent="Ground" instance=ExtResource("4_0vyvl")]
+z_index = 1
+position = Vector2(0, -670)
+scale = Vector2(1, -1)
+
+[node name="ObstacleTimer" type="Timer" parent="."]
+
+[node name="Obstacles" type="Node" parent="."]
+
+[node name="ItemTimer" type="Timer" parent="."]
+
+[node name="Items" type="Node" parent="."]
+
+[node name="ScoreTimer" type="Timer" parent="."]
+
+[node name="GameUI" type="CanvasLayer" parent="."]
+
+[node name="Score" type="Label" parent="GameUI"]
+z_index = 2
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -77.0
+offset_right = 77.0
+offset_bottom = 50.0
+grow_horizontal = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 36
+text = "SCORE: 0"
+script = ExtResource("10_3i4p0")
+
+[node name="HighScores" type="Label" parent="GameUI"]
+z_index = 2
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -155.0
+offset_right = -1.0
+offset_bottom = 50.0
+grow_horizontal = 0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 22
+text = "High Scores:"
+horizontal_alignment = 2
+script = ExtResource("11_da4k4")
+
+[node name="GameOver" parent="." instance=ExtResource("10_es258")]
+visible = false
+
+[node name="AudioPlayer" type="AudioStreamPlayer" parent="."]
+volume_db = -6.0
+script = ExtResource("13_k5c7o")
+sfx_click = ExtResource("14_jd2es")
+sfx_hit = ExtResource("15_xrofx")
+sfx_coin = ExtResource("16_0fsr8")
+sfx_powerup = ExtResource("17_r3joj")
+
+[node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("18_rnbaj")
+volume_db = -6.0
+
+[connection signal="display_high_scores" from="." to="GameUI/HighScores" method="_on_main_display_high_scores"]
+[connection signal="display_score" from="." to="GameUI/Score" method="_on_main_display_score"]
+[connection signal="sfx_click" from="." to="AudioPlayer" method="_on_main_sfx_click"]
+[connection signal="sfx_coin" from="." to="AudioPlayer" method="_on_main_sfx_coin"]
+[connection signal="sfx_hit" from="." to="AudioPlayer" method="_on_main_sfx_hit"]
+[connection signal="sfx_powerup" from="." to="AudioPlayer" method="_on_main_sfx_powerup"]
+[connection signal="hit" from="Ground" to="." method="_on_ground_hit"]
+[connection signal="hit" from="Ground/Ceiling" to="." method="_on_ceiling_hit"]
+[connection signal="timeout" from="ObstacleTimer" to="." method="_on_obstacle_timer_timeout"]
+[connection signal="timeout" from="ItemTimer" to="." method="_on_item_timer_timeout"]
+[connection signal="timeout" from="ScoreTimer" to="." method="_on_score_timer_timeout"]
+[connection signal="restart" from="GameOver" to="." method="_on_game_over_restart"]

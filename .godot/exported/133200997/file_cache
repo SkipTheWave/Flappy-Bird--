@@ -1,0 +1,9 @@
+res://scenes/coin.tscn::78c98738cb7576a37bf358905a68a1c0::1704915621::res://.godot/exported/133200997/export-96b2131180b71dd158e52c5527d22dd4-coin.scn
+res://scenes/game_over.tscn::4e73bff865bb732981b12225411a9452::1704915622::res://.godot/exported/133200997/export-21b8bee24a2bf9e9929bc898cc82b612-game_over.scn
+res://scenes/ground.tscn::b6ff2a8b62a2c90122066b2053c9bd74::1704915621::res://.godot/exported/133200997/export-dfd9c84b87282d43ebad4fab1fa15f6a-ground.scn
+res://scenes/main.tscn::626715609f678add8676510f9e794fb1::1705886039::res://.godot/exported/133200997/export-3ad5c15c4f3250da0cc7c1af1770d85f-main.scn
+res://scenes/pipe_big.tscn::8accc0555da059b82e0266f6167fb6a6::1704915621::res://.godot/exported/133200997/export-ec287c991dd20a025675394f0a9805db-pipe_big.scn
+res://scenes/pipe_medium.tscn::dac41ab3fa78408a9dba6f18be008757::1704915621::res://.godot/exported/133200997/export-d363c820840e09d9984b46b42eaf565f-pipe_medium.scn
+res://scenes/pipe_short.tscn::aab0bc345dd5345f393d9e1d8cea1279::1704915621::res://.godot/exported/133200997/export-30054cdceffb243b9aa33a0ef2f8954d-pipe_short.scn
+res://scenes/player_bird.tscn::9aec732e088c0e33e9b8891d47f55dee::1704915621::res://.godot/exported/133200997/export-80103fd3286888591f197c39663c9367-player_bird.scn
+res://scenes/speed_upgrade.tscn::9d7bce6b9ad1dfe5c9a61d1ae4898055::1704915621::res://.godot/exported/133200997/export-dbfe4233822c35c804f0ec16f71df629-speed_upgrade.scn
